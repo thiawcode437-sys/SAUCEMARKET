@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.local
+.expo/
+dist/
+build/
+*.log
+.DS_Store
+coverage/
+.vscode/
+.idea/
+prisma/migrations/**/migration.sql
+!prisma/migrations/**/migration.sql

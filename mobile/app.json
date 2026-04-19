@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Sauce Market",
+    "slug": "sauce-market",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#16A34A"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "sn.saucemarket.app"
+    },
+    "android": {
+      "package": "sn.saucemarket.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#16A34A"
+      },
+      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
+    },
+    "plugins": ["expo-image-picker", "expo-notifications"],
+    "extra": {
+      "eas": { "projectId": "your-project-id" }
+    }
+  }
+}
