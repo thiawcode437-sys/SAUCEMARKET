@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bcrypt = require('bcryptjs');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -9,6 +10,16 @@ const SELLER = {
   city: 'Dakar',
   isVerified: true,
 };
+
+const BUYER = {
+  phone: '+221772222222',
+  email: 'acheteur@saucemarket.sn',
+  name: 'Amadou Diop',
+  city: 'Dakar',
+  isVerified: true,
+};
+
+const DEMO_PASSWORD = 'demo123';
 
 // 3 produits par catégorie. Prix en FCFA.
 const PRODUCTS = [
@@ -102,23 +113,24 @@ const PRODUCTS = [
 ];
 
 async function main() {
-  // Skip if demo products already exist
-  const existingSeller = await prisma.user.findUnique({ where: { phone: SELLER.phone } });
-  if (existingSeller) {
-    const count = await prisma.product.count({ where: { sellerId: existingSeller.id } });
-    if (count >= PRODUCTS.length) {
-      console.log(`✓ ${count} produits demo déjà présents — skip.`);
-      return;
-    }
-  }
+  // (Toujours exécuter pour garantir que les mots de passe demo sont à jour)
 
   console.log('🛍️  Création des produits demo...');
 
-  // 1. Create or get demo seller
+  const passwordHash = await bcrypt.hash(DEMO_PASSWORD, 10);
+
+  // 1. Create demo seller (with password)
   const seller = await prisma.user.upsert({
     where: { phone: SELLER.phone },
-    update: {},
-    create: { ...SELLER, role: 'SELLER' },
+    update: { passwordHash },
+    create: { ...SELLER, role: 'SELLER', passwordHash },
+  });
+
+  // 1b. Create demo buyer (with password)
+  await prisma.user.upsert({
+    where: { phone: BUYER.phone },
+    update: { passwordHash },
+    create: { ...BUYER, role: 'BUYER', passwordHash },
   });
 
   // 2. Active subscription (required to publish)
