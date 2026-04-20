@@ -6,6 +6,7 @@ import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import PublishPage from './pages/PublishPage';
 import { useAuth } from './store/authStore';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/publier" element={<PublishPage />} />
           <Route path="*" element={<div className="max-w-6xl mx-auto p-8 text-center">Page introuvable</div>} />
         </Routes>
       </main>

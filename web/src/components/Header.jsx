@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import { ShoppingBag, User, LogOut, Search } from 'lucide-react';
+import { ShoppingBag, LogOut, Plus } from 'lucide-react';
 import { useAuth } from '../store/authStore';
 
 export default function Header() {
@@ -30,11 +30,14 @@ export default function Header() {
 
         {user ? (
           <div className="flex items-center gap-2">
+            <Link to="/publier" className="btn-primary flex items-center gap-1.5">
+              <Plus size={18} /> <span className="hidden sm:inline">Publier</span>
+            </Link>
             <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100">
               <div className="w-8 h-8 rounded-full bg-primary text-white grid place-items-center text-sm font-bold">
                 {user.name?.[0]?.toUpperCase() || 'U'}
               </div>
-              <span className="hidden sm:inline text-sm font-medium">{user.name}</span>
+              <span className="hidden md:inline text-sm font-medium">{user.name}</span>
             </Link>
             <button onClick={logout} className="btn-ghost text-red-600" title="Se déconnecter">
               <LogOut size={18} />
@@ -42,8 +45,10 @@ export default function Header() {
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <Link to="/login" className="btn-ghost">Se connecter</Link>
-            <Link to="/register" className="btn-primary hidden sm:inline-flex">S'inscrire</Link>
+            <Link to="/publier" className="btn-primary flex items-center gap-1.5">
+              <Plus size={18} /> <span className="hidden sm:inline">Publier</span>
+            </Link>
+            <Link to="/login" className="btn-ghost hidden sm:inline-flex">Se connecter</Link>
           </div>
         )}
       </div>
